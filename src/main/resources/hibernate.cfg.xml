@@ -31,7 +31,13 @@
 		<property name="hibernate.dbcp.minIdle">5</property>
 		<property name="hibernate.dbcp.maxWaitMillis">-1</property>
 		
-		<mapping class="hibernateModel.Teacher" />
-		<mapping class="hibernateModel.Student" />
+		<mapping class="objects.User" />
+		<mapping class="objects.Kahoot" />
+		<mapping class="objects.Competition" />
+		<mapping class="objects.Answer" />
+		<mapping class="objects.Player" />
+		<mapping class="objects.Question" />
+		<mapping class="objects.QuestionType" />
+		<mapping class="objects.Topic" />
 	</session-factory>
 </hibernate-configuration>
