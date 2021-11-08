@@ -1,13 +1,35 @@
 package objects;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "competition")
 public class Competition {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "competition_id")
 	private long competitionId;
-	private long kahootId;
 	
-	public Competition(long kahootId) {
+	@ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "kahoot_id")
+	private Kahoot kahoot;
+	
+	public Competition() {
 		super();
-		this.kahootId = kahootId;
+	}
+
+	public Competition(Kahoot kahoot) {
+		super();
+		this.kahoot = kahoot;
 	}
 
 	public long getCompetitionId() {
@@ -18,13 +40,17 @@ public class Competition {
 		this.competitionId = competitionId;
 	}
 
-	public long getKahootId() {
-		return kahootId;
+	public Kahoot getKahoot() {
+		return kahoot;
 	}
 
-	public void setKahootId(long kahootId) {
-		this.kahootId = kahootId;
+	public void setKahoot(Kahoot kahoot) {
+		this.kahoot = kahoot;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Competition [competitionId=" + competitionId + ", kahoot=" + kahoot + "]";
+	}
 	
 }

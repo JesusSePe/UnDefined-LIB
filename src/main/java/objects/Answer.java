@@ -1,15 +1,39 @@
 package objects;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "answer")
 public class Answer {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "answer_id")
 	private long answerId;
-	private String answer;
-	private long questionId;
 	
-	public Answer(String answer, long questionId) {
+	@Column(name = "answer")
+	private String answer;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "question_id")
+	private Question question;
+
+	public Answer() {
+		super();
+	}
+	
+	public Answer(String answer, Question question) {
 		super();
 		this.answer = answer;
-		this.questionId = questionId;
+		this.question = question;
 	}
 
 	public long getAnswerId() {
@@ -28,13 +52,17 @@ public class Answer {
 		this.answer = answer;
 	}
 
-	public long getQuestionId() {
-		return questionId;
+	public Question getQuestion() {
+		return question;
 	}
 
-	public void setQuestionId(long questionId) {
-		this.questionId = questionId;
+	public void setQuestion(Question question) {
+		this.question = question;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Answer [answerId=" + answerId + ", answer=" + answer + ", question=" + question + "]";
+	}
+
 }

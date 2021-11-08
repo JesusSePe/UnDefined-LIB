@@ -78,4 +78,10 @@ public class Kahoot {
 		this.questions = questions;
 	}
 
+	@Override
+	public String toString() {
+		return "Kahoot [kahootId=" + kahootId + ", title=" + title + ", topics=" + topics + ", user=" + user
+				+ ", questions=" + questions + "]";
+	}
+	
 }

@@ -1,16 +1,46 @@
 package objects;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "player")
 public class Player {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "player_id")
 	private long playerId;
-	private long userId;
-	private long competitionId;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+	private User user;
+	
+	@OneToMany(mappedBy = "player", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+		      CascadeType.REFRESH })
+	private List<Competition> competitions;
+	
+	@Column(name = "score")
 	private short score;
 	
-	public Player(long userId, long competitionId, short score) {
+	public Player() {
 		super();
-		this.userId = userId;
-		this.competitionId = competitionId;
+	}
+	
+	public Player(User user, List<Competition> competitions, short score) {
+		super();
+		this.user = user;
+		this.competitions = competitions;
 		this.score = score;
 	}
 
@@ -22,20 +52,20 @@ public class Player {
 		this.playerId = playerId;
 	}
 
-	public long getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public long getCompetitionId() {
-		return competitionId;
+	public List<Competition> getCompetitions() {
+		return competitions;
 	}
 
-	public void setCompetitionId(long competitionId) {
-		this.competitionId = competitionId;
+	public void setCompetitions(List<Competition> competitions) {
+		this.competitions = competitions;
 	}
 
 	public short getScore() {

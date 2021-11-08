@@ -37,6 +37,7 @@ public class User {
 		      CascadeType.REFRESH })
 	private List<Competition> competitions;
 	
+	
 	public User() {
 		super();
 	}
@@ -96,7 +97,11 @@ public class User {
 	public void setCompetitions(List<Competition> competitions) {
 		this.competitions = competitions;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", username=" + username + ", email=" + email + ", password=" + password
+				+ ", kahoots=" + kahoots + ", competitions=" + competitions + "]";
+	}
 	
 }

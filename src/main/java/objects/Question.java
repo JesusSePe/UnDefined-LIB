@@ -1,21 +1,50 @@
 package objects;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "question")
 public class Question {
 	
+	@Id
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@Column(name = "question_id")
 	private long questionId;
-	private String question;
-	private long questionTypeId;
-	private long timeout;
-	private long kahootId;
 	
-	public Question(String question, long questionTypeId, long timeout, long kahootId) {
+	@Column(name = "question")
+	private String question;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "questionType_id")
+	private QuestionType questionType;
+	
+	@Column(name = "timeout")
+	private long timeout;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "kahoot_id")
+	private Kahoot kahoot;
+	
+	public Question() {
 		super();
-		this.question = question;
-		this.questionTypeId = questionTypeId;
-		this.timeout = timeout;
-		this.kahootId = kahootId;
 	}
 	
+	public Question(String question, QuestionType questionType, long timeout, Kahoot kahoot) {
+		super();
+		this.question = question;
+		this.questionType = questionType;
+		this.timeout = timeout;
+		this.kahoot = kahoot;
+	}
+
 	public long getQuestionId() {
 		return questionId;
 	}
@@ -32,14 +61,22 @@ public class Question {
 		this.question = question;
 	}
 	
-	public long getQuestionTypeId() {
-		return questionTypeId;
+	public QuestionType getQuestionType() {
+		return questionType;
 	}
-	
-	public void setQuestionTypeId(long questionTypeId) {
-		this.questionTypeId = questionTypeId;
+
+	public void setQuestionType(QuestionType questionType) {
+		this.questionType = questionType;
 	}
-	
+
+	public Kahoot getKahoot() {
+		return kahoot;
+	}
+
+	public void setKahoot(Kahoot kahoot) {
+		this.kahoot = kahoot;
+	}
+
 	public long getTimeout() {
 		return timeout;
 	}
@@ -47,13 +84,11 @@ public class Question {
 	public void setTimeout(long timeout) {
 		this.timeout = timeout;
 	}
-	
-	public long getKahootId() {
-		return kahootId;
-	}
-	
-	public void setKahootId(long kahootId) {
-		this.kahootId = kahootId;
+
+	@Override
+	public String toString() {
+		return "Question [questionId=" + questionId + ", question=" + question + ", questionType=" + questionType
+				+ ", timeout=" + timeout + ", kahoot=" + kahoot + "]";
 	}
 	
 }
