@@ -20,6 +20,9 @@ public class Topic {
 	private String topic;
 	
 	//TODO relacion entre topic y kahoot
+	//un topic puede tener muchos kahoot
+	
+	
 	
 	public Topic(String topic) {
 		super();

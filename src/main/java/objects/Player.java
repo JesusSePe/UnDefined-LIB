@@ -26,9 +26,9 @@ public class Player {
     @JoinColumn(name = "user_id")
 	private User user;
 	
-	@OneToMany(mappedBy = "player", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
-		      CascadeType.REFRESH })
-	private List<Competition> competitions;
+	@ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "competition_id")
+	private Competition competition;
 	
 	@Column(name = "score")
 	private short score;
@@ -37,10 +37,10 @@ public class Player {
 		super();
 	}
 	
-	public Player(User user, List<Competition> competitions, short score) {
+	public Player(User user, Competition competition, short score) {
 		super();
 		this.user = user;
-		this.competitions = competitions;
+		this.competition = competition;
 		this.score = score;
 	}
 
@@ -60,12 +60,12 @@ public class Player {
 		this.user = user;
 	}
 
-	public List<Competition> getCompetitions() {
-		return competitions;
+	public Competition getCompetition() {
+		return competition;
 	}
 
-	public void setCompetitions(List<Competition> competitions) {
-		this.competitions = competitions;
+	public void setCompetition(Competition competition) {
+		this.competition = competition;
 	}
 
 	public short getScore() {
