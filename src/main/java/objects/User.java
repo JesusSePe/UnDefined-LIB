@@ -37,19 +37,25 @@ public class User {
 		      CascadeType.REFRESH })
 	private List<Competition> competitions;
 	
+	//TODO relacion entre concurs y/o player y concursant
+	@OneToMany(mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+		      CascadeType.REFRESH })
+	private List<Player> players;
 	
 	public User() {
 		super();
 	}
 
-	public User(String username, String email, String password, List<Kahoot> kahoots, List<Competition> competitions) {
+	public User(String username, String email, String password, List<Kahoot> kahoots, List<Competition> competitions, List<Player> players) {
 		super();
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.kahoots = kahoots;
 		this.competitions = competitions;
+		this.players = players;
 	}
+	
 	public long getUserId() {
 		return userId;
 	}
@@ -98,10 +104,18 @@ public class User {
 		this.competitions = competitions;
 	}
 
+	public List<Player> getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(List<Player> players) {
+		this.players = players;
+	}
+
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", username=" + username + ", email=" + email + ", password=" + password
-				+ ", kahoots=" + kahoots + ", competitions=" + competitions + "]";
+				+ ", kahoots=" + kahoots + ", competitions=" + competitions + ", players=" + players + "]";
 	}
-	
+
 }

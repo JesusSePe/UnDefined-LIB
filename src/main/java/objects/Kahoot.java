@@ -25,6 +25,7 @@ public class Kahoot {
 	@Column(name = "title")
 	private String title;
 	
+	//TODO revisar relacion
 	@OneToMany(mappedBy = "kahoot", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
 		      CascadeType.REFRESH })
 	private List<Topic> topics;
@@ -36,8 +37,19 @@ public class Kahoot {
 	@OneToMany(mappedBy = "kahoot", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
 		      CascadeType.REFRESH })
 	private List<Question> questions;
-
 	
+	public Kahoot() {
+		super();
+	}
+
+	public Kahoot(String title, List<Topic> topics, User user, List<Question> questions) {
+		super();
+		this.title = title;
+		this.topics = topics;
+		this.user = user;
+		this.questions = questions;
+	}
+
 	public long getKahootId() {
 		return kahootId;
 	}
