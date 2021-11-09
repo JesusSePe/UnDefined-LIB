@@ -14,40 +14,40 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table (name = "kahoot")
+@Table(name = "kahoot")
 public class Kahoot {
-	
+
 	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "kahoot_id")
 	private long kahootId;
-	
+
 	@Column(name = "title")
 	private String title;
-	
-	//TODO revisar relacion
-	@OneToMany(mappedBy = "kahoot", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
-		      CascadeType.REFRESH })
-	private List<Topic> topics;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+	@JoinColumn(name = "topic_id")
+	private Topic topic;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id")
 	private User user;
-	
+
 	@OneToMany(mappedBy = "kahoot", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
-		      CascadeType.REFRESH })
+			CascadeType.REFRESH })
 	private List<Question> questions;
-	
+
+	@OneToMany(mappedBy = "kahoot", cascade = CascadeType.ALL)
+	private List<Competition> competition;
+
 	public Kahoot() {
 		super();
 	}
 
-	public Kahoot(String title, List<Topic> topics, User user, List<Question> questions) {
+	public Kahoot(String title, User user) {
 		super();
 		this.title = title;
-		this.topics = topics;
 		this.user = user;
-		this.questions = questions;
 	}
 
 	public long getKahootId() {
@@ -66,14 +66,11 @@ public class Kahoot {
 		this.title = title;
 	}
 
-	public List<Topic> getTopics() {
-		return topics;
-	}
-
-	public void setTopics(List<Topic> topics) {
-		this.topics = topics;
-	}
-
+	/*
+	 * public Topic getTopic() { return topic; }
+	 * 
+	 * public void setTopic(Topic topic) { this.topic = topic; }
+	 */
 	public User getUser() {
 		return user;
 	}
@@ -81,19 +78,19 @@ public class Kahoot {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	/*
+	 * public List<Question> getQuestions() { return questions; }
+	 * 
+	 * public void setQuestions(List<Question> questions) { this.questions =
+	 * questions; }
+	 */
 
-	public List<Question> getQuestions() {
-		return questions;
+	public List<Competition> getCompetition() {
+		return competition;
 	}
 
-	public void setQuestions(List<Question> questions) {
-		this.questions = questions;
+	public void setCompetition(List<Competition> competition) {
+		this.competition = competition;
 	}
 
-	@Override
-	public String toString() {
-		return "Kahoot [kahootId=" + kahootId + ", title=" + title + ", topics=" + topics + ", user=" + user
-				+ ", questions=" + questions + "]";
-	}
-	
 }

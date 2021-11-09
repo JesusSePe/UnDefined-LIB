@@ -13,60 +13,66 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "question")
 public class Question {
-	
+
 	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "question_id")
 	private long questionId;
-	
-	@Column(name = "question")
-	private String question;
-	
+
+	@Column(name = "description")
+	private String description;
+
 	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "questionType_id")
-	private QuestionType questionType;
-	
+	@JoinColumn(name = "id")
+	private TypeQ typeQ;
+
 	@Column(name = "timeout")
 	private long timeout;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "kahoot_id")
+
+	@ManyToOne()
+	@JoinColumn(name = "kahoot_id")
 	private Kahoot kahoot;
-	
+
 	public Question() {
 		super();
 	}
-	
-	public Question(String question, QuestionType questionType, long timeout, Kahoot kahoot) {
+
+	public Question(String description, long timeout) {
 		super();
-		this.question = question;
-		this.questionType = questionType;
+		this.description = description;
 		this.timeout = timeout;
-		this.kahoot = kahoot;
 	}
 
 	public long getQuestionId() {
 		return questionId;
 	}
-	
+
 	public void setQuestionId(long questionId) {
 		this.questionId = questionId;
 	}
-	
-	public String getQuestion() {
-		return question;
-	}
-	
-	public void setQuestion(String question) {
-		this.question = question;
-	}
-	
-	public QuestionType getQuestionType() {
-		return questionType;
+
+	public String getDescription() {
+		return description;
 	}
 
-	public void setQuestionType(QuestionType questionType) {
-		this.questionType = questionType;
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public TypeQ getTypeQ() {
+		return typeQ;
+	}
+
+	public void setTypeQ(TypeQ typeQ) {
+		this.typeQ = typeQ;
+	}
+
+	public long getTimeout() {
+		return timeout;
+	}
+
+	public void setTimeout(long timeout) {
+		this.timeout = timeout;
 	}
 
 	public Kahoot getKahoot() {
@@ -77,18 +83,4 @@ public class Question {
 		this.kahoot = kahoot;
 	}
 
-	public long getTimeout() {
-		return timeout;
-	}
-	
-	public void setTimeout(long timeout) {
-		this.timeout = timeout;
-	}
-
-	@Override
-	public String toString() {
-		return "Question [questionId=" + questionId + ", question=" + question + ", questionType=" + questionType
-				+ ", timeout=" + timeout + ", kahoot=" + kahoot + "]";
-	}
-	
 }

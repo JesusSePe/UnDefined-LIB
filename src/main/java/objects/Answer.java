@@ -13,23 +13,23 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "answer")
 public class Answer {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "answer_id")
 	private long answerId;
-	
+
 	@Column(name = "answer")
 	private String answer;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "question_id")
+	@JoinColumn(name = "question_id")
 	private Question question;
 
 	public Answer() {
 		super();
 	}
-	
+
 	public Answer(String answer, Question question) {
 		super();
 		this.answer = answer;
@@ -58,11 +58,6 @@ public class Answer {
 
 	public void setQuestion(Question question) {
 		this.question = question;
-	}
-
-	@Override
-	public String toString() {
-		return "Answer [answerId=" + answerId + ", answer=" + answer + ", question=" + question + "]";
 	}
 
 }

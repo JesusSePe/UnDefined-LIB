@@ -13,13 +13,13 @@ import objects.Competition;
 import objects.Kahoot;
 import objects.Player;
 import objects.Question;
-import objects.QuestionType;
 import objects.Topic;
+import objects.TypeQ;
 import objects.User;
 
 public class HibernateUtil {
-private static SessionFactory sessionFactory;
-	
+	private static SessionFactory sessionFactory;
+
 	public static SessionFactory getSessionFactory() {
 		if (sessionFactory == null) {
 			try {
@@ -41,13 +41,12 @@ private static SessionFactory sessionFactory;
 
 				configuration.setProperties(settings);
 
-				//configuration.addAnnotatedClass(Table1.class);
 				configuration.addAnnotatedClass(Answer.class);
 				configuration.addAnnotatedClass(Competition.class);
 				configuration.addAnnotatedClass(Kahoot.class);
 				configuration.addAnnotatedClass(Player.class);
 				configuration.addAnnotatedClass(Question.class);
-				configuration.addAnnotatedClass(QuestionType.class);
+				configuration.addAnnotatedClass(TypeQ.class);
 				configuration.addAnnotatedClass(Topic.class);
 				configuration.addAnnotatedClass(User.class);
 
@@ -56,8 +55,7 @@ private static SessionFactory sessionFactory;
 				System.out.println("Hibernate Java Config Service Registry Created");
 
 				sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-				
-				return sessionFactory;
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -34,10 +34,9 @@ public class Competition {
 		super();
 	}
 
-	public Competition(Kahoot kahoot, List<Player> players) {
+	public Competition(Kahoot kahoot) {
 		super();
 		this.kahoot = kahoot;
-		this.players = players;
 	}
 
 	public long getCompetitionId() {

@@ -1,7 +1,5 @@
 package objects;
 
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -31,16 +28,15 @@ public class Player {
 	private Competition competition;
 	
 	@Column(name = "score")
-	private short score;
+	private long score;
 	
 	public Player() {
 		super();
 	}
 	
-	public Player(User user, Competition competition, short score) {
+	public Player(User user, long score) {
 		super();
 		this.user = user;
-		this.competition = competition;
 		this.score = score;
 	}
 
@@ -68,13 +64,12 @@ public class Player {
 		this.competition = competition;
 	}
 
-	public short getScore() {
+	public long getScore() {
 		return score;
 	}
 
-	public void setScore(short score) {
+	public void setScore(long score) {
 		this.score = score;
 	}
-	
-	
+
 }
