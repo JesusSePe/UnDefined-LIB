@@ -8,20 +8,18 @@ import org.hibernate.Transaction;
 
 import HibernateUtils.HibernateUtil;
 import dao.Dao;
-import objects.TypeQ;
+import objects.Competition;
 
-public class TypeQDao implements Dao<TypeQ> {
+public class CompetitionDao implements Dao<Competition> {
 
 	@Override
-	public TypeQ get(long id) {
+	public Competition get(long id) {
 		Transaction transaction = null;
-		TypeQ typeQ = null;
+		Competition competition = null;
 
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
-
-			typeQ = session.get(TypeQ.class, id);
-
+			competition = session.get(Competition.class, id);
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {
@@ -29,19 +27,19 @@ public class TypeQDao implements Dao<TypeQ> {
 			}
 		}
 
-		return typeQ;
+		return competition;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<TypeQ> getAll() {
+	public List<Competition> getAll() {
 		Transaction transaction = null;
-		List<TypeQ> typeQs = new ArrayList<TypeQ>();
+		List<Competition> competitions = new ArrayList<Competition>();
 
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 
-			typeQs = session.createQuery("from question_type").list();
+			competitions = session.createQuery("from competition").list();
 
 			transaction.commit();
 		} catch (Exception e) {
@@ -50,17 +48,34 @@ public class TypeQDao implements Dao<TypeQ> {
 			}
 		}
 
-		return typeQs;
+		return competitions;
 	}
 
 	@Override
-	public void save(TypeQ typeQ) {
+	public void save(Competition competition) {
 		Transaction transaction = null;
 
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 
-			session.save(typeQ);
+			session.save(competition);
+
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+		}
+	}
+
+	@Override
+	public void update(Competition competition) {
+		Transaction transaction = null;
+
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			transaction = session.beginTransaction();
+
+			session.saveOrUpdate(competition);
 
 			transaction.commit();
 		} catch (Exception e) {
@@ -72,31 +87,13 @@ public class TypeQDao implements Dao<TypeQ> {
 	}
 
 	@Override
-	public void update(TypeQ typeQ) {
+	public void delete(Competition competition) {
 		Transaction transaction = null;
 
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 
-			session.saveOrUpdate(typeQ);
-
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
-		}
-
-	}
-
-	@Override
-	public void delete(TypeQ typeQ) {
-		Transaction transaction = null;
-
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-
-			session.delete(typeQ);
+			session.delete(competition);
 
 			transaction.commit();
 		} catch (Exception e) {

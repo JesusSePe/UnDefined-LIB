@@ -1,5 +1,7 @@
 package objects;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,28 +22,32 @@ public class Question {
 	@Column(name = "question_id")
 	private long questionId;
 
-	@Column(name = "description")
-	private String description;
+	@Column(name = "question_text")
+	private String questionText;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id")
-	private TypeQ typeQ;
-
-	@Column(name = "timeout")
-	private long timeout;
+	private QuestionType questionType;
 
 	@ManyToOne()
 	@JoinColumn(name = "kahoot_id")
 	private Kahoot kahoot;
 
+	@OneToMany(mappedBy = "question", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+			CascadeType.REFRESH })
+	private List<Answer> answers;
+
+	@OneToMany(mappedBy = "question", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+			CascadeType.REFRESH })
+	private List<UserQuestionHistory> userQuestionHistories;
+
 	public Question() {
 		super();
 	}
 
-	public Question(String description, long timeout) {
+	public Question(String questionText) {
 		super();
-		this.description = description;
-		this.timeout = timeout;
+		this.questionText = questionText;
 	}
 
 	public long getQuestionId() {
@@ -51,28 +58,20 @@ public class Question {
 		this.questionId = questionId;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getQuestionText() {
+		return questionText;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setQuestionText(String questionText) {
+		this.questionText = questionText;
 	}
 
-	public TypeQ getTypeQ() {
-		return typeQ;
+	public QuestionType getQuestionType() {
+		return questionType;
 	}
 
-	public void setTypeQ(TypeQ typeQ) {
-		this.typeQ = typeQ;
-	}
-
-	public long getTimeout() {
-		return timeout;
-	}
-
-	public void setTimeout(long timeout) {
-		this.timeout = timeout;
+	public void setQuestionType(QuestionType questionType) {
+		this.questionType = questionType;
 	}
 
 	public Kahoot getKahoot() {
@@ -81,6 +80,22 @@ public class Question {
 
 	public void setKahoot(Kahoot kahoot) {
 		this.kahoot = kahoot;
+	}
+
+	public List<Answer> getAnswers() {
+		return answers;
+	}
+
+	public void setAnswers(List<Answer> answers) {
+		this.answers = answers;
+	}
+
+	public List<UserQuestionHistory> getUserQuestionHistories() {
+		return userQuestionHistories;
+	}
+
+	public void setUserQuestionHistories(List<UserQuestionHistory> userQuestionHistories) {
+		this.userQuestionHistories = userQuestionHistories;
 	}
 
 }

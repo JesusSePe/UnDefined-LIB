@@ -1,5 +1,7 @@
 package objects;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,37 +9,39 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "player")
 public class Player {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "player_id")
 	private long playerId;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-	private User user;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "competition_id")
-	private Competition competition;
-	
-	@Column(name = "score")
-	private long score;
-	
+
+	@Column(name = "nickname")
+	private String nickname;
+
+	@ManyToMany(cascade = { CascadeType.ALL })
+	@JoinTable(name = "competition_player", joinColumns = { @JoinColumn(name = "player_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "competition_id") })
+	private List<Competition> competitions;
+
+	@OneToMany(mappedBy = "player", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+			CascadeType.REFRESH })
+	private List<UserQuestionHistory> userQuestionHistories;
+
 	public Player() {
 		super();
 	}
-	
-	public Player(User user, long score) {
+
+	public Player(String nickname) {
 		super();
-		this.user = user;
-		this.score = score;
+		this.nickname = nickname;
 	}
 
 	public long getPlayerId() {
@@ -48,28 +52,28 @@ public class Player {
 		this.playerId = playerId;
 	}
 
-	public User getUser() {
-		return user;
+	public String getNickname() {
+		return nickname;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
-	public Competition getCompetition() {
-		return competition;
+	public List<Competition> getCompetitions() {
+		return competitions;
 	}
 
-	public void setCompetition(Competition competition) {
-		this.competition = competition;
+	public void setCompetitions(List<Competition> competitions) {
+		this.competitions = competitions;
 	}
 
-	public long getScore() {
-		return score;
+	public List<UserQuestionHistory> getUserQuestionHistories() {
+		return userQuestionHistories;
 	}
 
-	public void setScore(long score) {
-		this.score = score;
+	public void setUserQuestionHistories(List<UserQuestionHistory> userQuestionHistories) {
+		this.userQuestionHistories = userQuestionHistories;
 	}
 
 }

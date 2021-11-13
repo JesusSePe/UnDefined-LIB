@@ -12,30 +12,27 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
 	private long userId;
-	
+
 	@Column(name = "username", unique = true)
 	private String username;
-	
+
 	@Column(name = "email", unique = true)
 	private String email;
-	
+
 	@Column(name = "password")
 	private String password;
-	
-	@OneToMany(mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
-	private List<Kahoot> kahoots;
-	
+
 	@OneToMany(mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
-		      CascadeType.REFRESH })
-	private List<Player> players;
-	
+			CascadeType.REFRESH })
+	private List<Kahoot> kahoots;
+
 	public User() {
 		super();
 	}
@@ -46,7 +43,7 @@ public class User {
 		this.email = email;
 		this.password = password;
 	}
-	
+
 	public long getUserId() {
 		return userId;
 	}
@@ -86,14 +83,5 @@ public class User {
 	public void setKahoots(List<Kahoot> kahoots) {
 		this.kahoots = kahoots;
 	}
-
-	public List<Player> getPlayers() {
-		return players;
-	}
-
-	public void setPlayers(List<Player> players) {
-		this.players = players;
-	}
-
 
 }

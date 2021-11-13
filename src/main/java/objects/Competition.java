@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -16,20 +17,23 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "competition")
 public class Competition {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "competition_id")
 	private long competitionId;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "kahoot_id")
+	@JoinColumn(name = "user_id")
 	private Kahoot kahoot;
-	
-	@OneToMany(mappedBy = "competition", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
-		      CascadeType.REFRESH })
+
+	@ManyToMany(mappedBy = "competitions")
 	private List<Player> players;
-	
+
+	@OneToMany(mappedBy = "competition", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+			CascadeType.REFRESH })
+	private List<UserQuestionHistory> userQuestionHistories;
+
 	public Competition() {
 		super();
 	}
@@ -63,9 +67,12 @@ public class Competition {
 		this.players = players;
 	}
 
-	@Override
-	public String toString() {
-		return "Competition [competitionId=" + competitionId + ", kahoot=" + kahoot + ", players=" + players + "]";
+	public List<UserQuestionHistory> getUserQuestionHistories() {
+		return userQuestionHistories;
+	}
+
+	public void setUserQuestionHistories(List<UserQuestionHistory> userQuestionHistories) {
+		this.userQuestionHistories = userQuestionHistories;
 	}
 
 }

@@ -8,20 +8,18 @@ import org.hibernate.Transaction;
 
 import HibernateUtils.HibernateUtil;
 import dao.Dao;
-import objects.Question;
+import objects.Kahoot;
 
-public class QuestionDao implements Dao<Question> {
+public class KahootDao implements Dao<Kahoot> {
 
 	@Override
-	public Question get(long id) {
+	public Kahoot get(long id) {
 		Transaction transaction = null;
-		Question question = null;
+		Kahoot kahoot = null;
 
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
-
-			question = session.get(Question.class, id);
-
+			kahoot = session.get(Kahoot.class, id);
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {
@@ -29,19 +27,53 @@ public class QuestionDao implements Dao<Question> {
 			}
 		}
 
-		return question;
+		return kahoot;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Question> getAll() {
+	public List<Kahoot> getAll() {
 		Transaction transaction = null;
-		List<Question> questions = new ArrayList<Question>();
+		List<Kahoot> kahoots = new ArrayList<Kahoot>();
+
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			transaction = session.beginTransaction();
+			kahoots = session.createQuery("from kahoot").list();
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+		}
+
+		return kahoots;
+	}
+
+	@Override
+	public void save(Kahoot kahoot) {
+		Transaction transaction = null;
 
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 
-			questions = session.createQuery("from question").list();
+			session.save(kahoot);
+
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+		}
+	}
+
+	@Override
+	public void update(Kahoot kahoot) {
+		Transaction transaction = null;
+
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			transaction = session.beginTransaction();
+
+			session.saveOrUpdate(kahoot);
 
 			transaction.commit();
 		} catch (Exception e) {
@@ -50,53 +82,16 @@ public class QuestionDao implements Dao<Question> {
 			}
 		}
 
-		return questions;
 	}
 
 	@Override
-	public void save(Question question) {
+	public void delete(Kahoot kahoot) {
 		Transaction transaction = null;
 
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 
-			session.save(question);
-
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
-		}
-
-	}
-
-	@Override
-	public void update(Question question) {
-		Transaction transaction = null;
-
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-
-			session.saveOrUpdate(question);
-
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
-		}
-
-	}
-
-	@Override
-	public void delete(Question question) {
-		Transaction transaction = null;
-
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-
-			session.delete(question);
+			session.delete(kahoot);
 
 			transaction.commit();
 		} catch (Exception e) {

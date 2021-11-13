@@ -19,8 +19,11 @@ public class Answer {
 	@Column(name = "answer_id")
 	private long answerId;
 
-	@Column(name = "answer")
-	private String answer;
+	@Column(name = "answer_text")
+	private String answerText;
+
+	@Column(name = "isCorrect")
+	private boolean isCorrect;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "question_id")
@@ -30,10 +33,11 @@ public class Answer {
 		super();
 	}
 
-	public Answer(String answer, Question question) {
+	public Answer(String answerText, Question question, boolean isCorrect) {
 		super();
-		this.answer = answer;
+		this.answerText = answerText;
 		this.question = question;
+		this.isCorrect = isCorrect;
 	}
 
 	public long getAnswerId() {
@@ -44,12 +48,12 @@ public class Answer {
 		this.answerId = answerId;
 	}
 
-	public String getAnswer() {
-		return answer;
+	public String getAnswerText() {
+		return answerText;
 	}
 
-	public void setAnswer(String answer) {
-		this.answer = answer;
+	public void setAnswerText(String answerText) {
+		this.answerText = answerText;
 	}
 
 	public Question getQuestion() {
@@ -58,6 +62,14 @@ public class Answer {
 
 	public void setQuestion(Question question) {
 		this.question = question;
+	}
+
+	public boolean isCorrect() {
+		return isCorrect;
+	}
+
+	public void setCorrect(boolean isCorrect) {
+		this.isCorrect = isCorrect;
 	}
 
 }

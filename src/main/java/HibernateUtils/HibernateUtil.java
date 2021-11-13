@@ -13,9 +13,10 @@ import objects.Competition;
 import objects.Kahoot;
 import objects.Player;
 import objects.Question;
+import objects.QuestionType;
 import objects.Topic;
-import objects.TypeQ;
 import objects.User;
+import objects.UserQuestionHistory;
 
 public class HibernateUtil {
 	private static SessionFactory sessionFactory;
@@ -46,9 +47,10 @@ public class HibernateUtil {
 				configuration.addAnnotatedClass(Kahoot.class);
 				configuration.addAnnotatedClass(Player.class);
 				configuration.addAnnotatedClass(Question.class);
-				configuration.addAnnotatedClass(TypeQ.class);
+				configuration.addAnnotatedClass(QuestionType.class);
 				configuration.addAnnotatedClass(Topic.class);
 				configuration.addAnnotatedClass(User.class);
+				configuration.addAnnotatedClass(UserQuestionHistory.class);
 
 				ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 						.applySettings(configuration.getProperties()).build();
