@@ -10,8 +10,7 @@ import HibernateUtils.HibernateUtil;
 import dao.Dao;
 import objects.User;
 
-public class UserDao implements Dao<User>{
-
+public class UserDao implements Dao<User> {
 
 	public UserDao() {
 
@@ -22,15 +21,15 @@ public class UserDao implements Dao<User>{
 		Transaction transaction = null;
 		User user = null;
 
-		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 
 			user = session.get(User.class, id);
 
 			transaction.commit();
-		}catch (Exception e) {
-			if(transaction != null) {
-				transaction.rollback();	
+		} catch (Exception e) {
+			if (transaction != null) {
+				transaction.rollback();
 			}
 		}
 
@@ -43,15 +42,15 @@ public class UserDao implements Dao<User>{
 		Transaction transaction = null;
 		List<User> users = new ArrayList<User>();
 
-		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 
 			users = session.createQuery("from user").list();
 
 			transaction.commit();
-		}catch (Exception e) {
-			if(transaction != null) {
-				transaction.rollback();	
+		} catch (Exception e) {
+			if (transaction != null) {
+				transaction.rollback();
 			}
 		}
 
@@ -62,33 +61,32 @@ public class UserDao implements Dao<User>{
 	public void save(User user) {
 		Transaction transaction = null;
 
-		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 
 			session.save(user);
 
 			transaction.commit();
-		}catch (Exception e) {
-			if(transaction != null) {
-				transaction.rollback();	
+		} catch (Exception e) {
+			if (transaction != null) {
+				transaction.rollback();
 			}
 		}
 	}
-
 
 	@Override
 	public void update(User user) {
 		Transaction transaction = null;
 
-		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 
 			session.saveOrUpdate(user);
 
 			transaction.commit();
-		}catch (Exception e) {
-			if(transaction != null) {
-				transaction.rollback();	
+		} catch (Exception e) {
+			if (transaction != null) {
+				transaction.rollback();
 			}
 		}
 
@@ -98,17 +96,43 @@ public class UserDao implements Dao<User>{
 	public void delete(User user) {
 		Transaction transaction = null;
 
-		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 
 			session.delete(user);
 
 			transaction.commit();
-		}catch (Exception e) {
-			if(transaction != null) {
-				transaction.rollback();	
+		} catch (Exception e) {
+			if (transaction != null) {
+				transaction.rollback();
 			}
 		}
+
+	}
+
+	public boolean validateLogin(String name, String password) {
+		Transaction transaction = null;
+		User user = null;
+		boolean validate = false;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			transaction = session.beginTransaction();
+
+			user = session.get(User.class, name);
+			if (password == user.getPassword()) {
+				validate = true;
+				transaction.commit();
+				System.out.println(validate);
+				return validate;
+			}
+
+		} catch (Exception e) {
+			if (transaction != null) {
+				// transaction.rollback();
+				System.out.println(e);
+			}
+		}
+
+		return validate;
 
 	}
 
