@@ -11,9 +11,6 @@ public class App {
 	
 	public static void main(String[] args) {
 		UserDao userDao = new UserDao();
-		// PlayerDao playerDao = new PlayerDao();
-		// TypeQDao typeQDao = new TypeQDao();
-		// QuestionDao questionDao = new QuestionDao();
 
 		User user1 = new User("ladyangel", "angiemarie@hotmail.com", "12345");
 		userDao.save(user1);
