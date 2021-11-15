@@ -12,10 +12,6 @@ import objects.User;
 
 public class UserDao implements Dao<User> {
 
-	public UserDao() {
-
-	}
-
 	@Override
 	public User get(long id) {
 		Transaction transaction = null;
@@ -35,30 +31,6 @@ public class UserDao implements Dao<User> {
 
 		return user;
 	}
-	
-	public boolean getValidateLogin(String name, String password) {
-		Transaction transaction = null;
-		User user = null;
-		boolean validate = false;
-		try(Session session = HibernateUtil.getSessionFactory().openSession()){
-			transaction = session.beginTransaction();
-
-			user = session.get(User.class, name);
-			if (password == user.getPassword())
-			{
-				validate = true;
-				return validate;
-				transaction.commit();
-			}
-			
-		}catch (Exception e) {
-			if(transaction != null) {
-				transaction.rollback();	
-			}
-		}
-
-		return validate;
-	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -74,7 +46,8 @@ public class UserDao implements Dao<User> {
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {
-				transaction.rollback();
+				// transaction.rollback();
+				System.out.println(e);
 			}
 		}
 
@@ -131,32 +104,6 @@ public class UserDao implements Dao<User> {
 				transaction.rollback();
 			}
 		}
-
-	}
-
-	public boolean validateLogin(String name, String password) {
-		Transaction transaction = null;
-		User user = null;
-		boolean validate = false;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-
-			user = session.get(User.class, name);
-			if (password == user.getPassword()) {
-				validate = true;
-				transaction.commit();
-				System.out.println(validate);
-				return validate;
-			}
-
-		} catch (Exception e) {
-			if (transaction != null) {
-				// transaction.rollback();
-				System.out.println(e);
-			}
-		}
-
-		return validate;
 
 	}
 
