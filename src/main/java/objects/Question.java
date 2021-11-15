@@ -37,10 +37,6 @@ public class Question {
 			CascadeType.REFRESH })
 	private List<Answer> answers;
 
-	@OneToMany(mappedBy = "question", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
-			CascadeType.REFRESH })
-	private List<UserQuestionHistory> userQuestionHistories;
-
 	public Question() {
 		super();
 	}
@@ -88,14 +84,6 @@ public class Question {
 
 	public void setAnswers(List<Answer> answers) {
 		this.answers = answers;
-	}
-
-	public List<UserQuestionHistory> getUserQuestionHistories() {
-		return userQuestionHistories;
-	}
-
-	public void setUserQuestionHistories(List<UserQuestionHistory> userQuestionHistories) {
-		this.userQuestionHistories = userQuestionHistories;
 	}
 
 }

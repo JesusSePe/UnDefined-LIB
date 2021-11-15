@@ -16,7 +16,7 @@ import objects.Question;
 import objects.QuestionType;
 import objects.Topic;
 import objects.User;
-import objects.UserQuestionHistory;
+import objects.UserAnswerHistory;
 
 public class HibernateUtil {
 	private static SessionFactory sessionFactory;
@@ -50,7 +50,7 @@ public class HibernateUtil {
 				configuration.addAnnotatedClass(QuestionType.class);
 				configuration.addAnnotatedClass(Topic.class);
 				configuration.addAnnotatedClass(User.class);
-				configuration.addAnnotatedClass(UserQuestionHistory.class);
+				configuration.addAnnotatedClass(UserAnswerHistory.class);
 
 				ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 						.applySettings(configuration.getProperties()).build();

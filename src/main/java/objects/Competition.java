@@ -32,7 +32,7 @@ public class Competition {
 
 	@OneToMany(mappedBy = "competition", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
 			CascadeType.REFRESH })
-	private List<UserQuestionHistory> userQuestionHistories;
+	private List<UserAnswerHistory> userQuestionHistories;
 
 	public Competition() {
 		super();
@@ -67,11 +67,11 @@ public class Competition {
 		this.players = players;
 	}
 
-	public List<UserQuestionHistory> getUserQuestionHistories() {
+	public List<UserAnswerHistory> getUserQuestionHistories() {
 		return userQuestionHistories;
 	}
 
-	public void setUserQuestionHistories(List<UserQuestionHistory> userQuestionHistories) {
+	public void setUserQuestionHistories(List<UserAnswerHistory> userQuestionHistories) {
 		this.userQuestionHistories = userQuestionHistories;
 	}
 

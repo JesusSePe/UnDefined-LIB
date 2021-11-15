@@ -8,19 +8,19 @@ import org.hibernate.Transaction;
 
 import HibernateUtils.HibernateUtil;
 import dao.Dao;
-import objects.UserQuestionHistory;
+import objects.UserAnswerHistory;
 
-public class UserQuestionHistoryDao implements Dao<UserQuestionHistory> {
+public class UserQuestionHistoryDao implements Dao<UserAnswerHistory> {
 
 	@Override
-	public UserQuestionHistory get(long id) {
+	public UserAnswerHistory get(long id) {
 		Transaction transaction = null;
-		UserQuestionHistory userQuestionHistory = null;
+		UserAnswerHistory userQuestionHistory = null;
 
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 
-			userQuestionHistory = session.get(UserQuestionHistory.class, id);
+			userQuestionHistory = session.get(UserAnswerHistory.class, id);
 
 			transaction.commit();
 		} catch (Exception e) {
@@ -34,9 +34,9 @@ public class UserQuestionHistoryDao implements Dao<UserQuestionHistory> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<UserQuestionHistory> getAll() {
+	public List<UserAnswerHistory> getAll() {
 		Transaction transaction = null;
-		List<UserQuestionHistory> players = new ArrayList<UserQuestionHistory>();
+		List<UserAnswerHistory> players = new ArrayList<UserAnswerHistory>();
 
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
@@ -54,7 +54,7 @@ public class UserQuestionHistoryDao implements Dao<UserQuestionHistory> {
 	}
 
 	@Override
-	public void save(UserQuestionHistory userQuestionHistory) {
+	public void save(UserAnswerHistory userQuestionHistory) {
 		Transaction transaction = null;
 
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -71,7 +71,7 @@ public class UserQuestionHistoryDao implements Dao<UserQuestionHistory> {
 	}
 
 	@Override
-	public void update(UserQuestionHistory userQuestionHistory) {
+	public void update(UserAnswerHistory userQuestionHistory) {
 		Transaction transaction = null;
 
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -89,7 +89,7 @@ public class UserQuestionHistoryDao implements Dao<UserQuestionHistory> {
 	}
 
 	@Override
-	public void delete(UserQuestionHistory userQuestionHistory) {
+	public void delete(UserAnswerHistory userQuestionHistory) {
 		Transaction transaction = null;
 
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {

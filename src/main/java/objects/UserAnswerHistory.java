@@ -11,8 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user_question_history")
-public class UserQuestionHistory {
+@Table(name = "user_answer_history")
+public class UserAnswerHistory {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,10 +28,10 @@ public class UserQuestionHistory {
 	private Player player;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "question_id")
-	private Question question;
+	@JoinColumn(name = "answer_id")
+	private Answer answer;
 
-	public UserQuestionHistory() {
+	public UserAnswerHistory() {
 		super();
 	}
 
@@ -59,12 +59,12 @@ public class UserQuestionHistory {
 		this.player = player;
 	}
 
-	public Question getQuestion() {
-		return question;
+	public Answer getAnswer() {
+		return answer;
 	}
 
-	public void setQuestion(Question question) {
-		this.question = question;
+	public void setAnswer(Answer answer) {
+		this.answer = answer;
 	}
 
 }
