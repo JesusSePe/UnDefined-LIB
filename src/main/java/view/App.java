@@ -15,8 +15,6 @@ public class App {
 		User user2 = new User("lady", "angiemarie1@hotmail.com", "12345");
 		userDao.save(user2);
 
-		User user3 = userDao.get(1);
-
 	}
 
 }
