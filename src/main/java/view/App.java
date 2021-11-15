@@ -1,9 +1,14 @@
 package view;
 
+import java.awt.EventQueue;
+
+import configuration.ReadXMLDomParser;
 import dao.daoImpl.UserDao;
 import objects.User;
+import views.Login;
 
 public class App {
+	
 	public static void main(String[] args) {
 		UserDao userDao = new UserDao();
 		// PlayerDao playerDao = new PlayerDao();
