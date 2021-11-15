@@ -36,6 +36,30 @@ public class UserDao implements Dao<User>{
 
 		return user;
 	}
+	
+	public boolean getValidateLogin(String name, String password) {
+		Transaction transaction = null;
+		User user = null;
+		boolean validate = false;
+		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+			transaction = session.beginTransaction();
+
+			user = session.get(User.class, name);
+			if (password == user.getPassword())
+			{
+				validate = true;
+				return validate;
+				transaction.commit();
+			}
+			
+		}catch (Exception e) {
+			if(transaction != null) {
+				transaction.rollback();	
+			}
+		}
+
+		return validate;
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
